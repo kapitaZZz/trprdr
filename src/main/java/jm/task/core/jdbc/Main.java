@@ -1,6 +1,7 @@
 package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.dao.UserDao;
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
@@ -12,12 +13,9 @@ import org.hibernate.Transaction;
 public class Main {
     public static void main(String[] args) {
 
-        Session session = Util.getSessionFactory().getCurrentSession();
+        UserDao userdao = new UserDaoHibernateImpl();
 
-        session.beginTransaction();
-
-
-        session.getTransaction().commit();
+        userdao.createUsersTable();
 
 
 
