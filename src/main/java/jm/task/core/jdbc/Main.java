@@ -13,10 +13,24 @@ import org.hibernate.Transaction;
 public class Main {
     public static void main(String[] args) {
 
-        UserDao userdao = new UserDaoHibernateImpl();
+        UserDao user = new UserDaoHibernateImpl();
 
-        userdao.createUsersTable();
 
+        user.createUsersTable();
+//        userDao.saveUser("John", "Smith", (byte) 50);
+//        userDao.saveUser("Jane", "Smith", (byte) 45);
+//        userDao.saveUser("Steve", "Malkovich", (byte) 30);
+//        userDao.saveUser("Peter", "Pen", (byte) 15);
+//
+//        userDao.getAllUsers();
+//
+//        userDao.removeUserById(2L);
+//
+//        userDao.cleanUsersTable();
+//
+//        userDao.getAllUsers();
+//
+//        userDao.dropUsersTable();
 
 
 //        UserService userService = new UserServiceImpl();
@@ -36,8 +50,6 @@ public class Main {
 //        userService.getAllUsers();
 //
 //        userService.dropUsersTable();
-
-
 
 
     }

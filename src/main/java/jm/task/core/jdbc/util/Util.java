@@ -14,8 +14,14 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Util {
-    private static Connection connection = null;
-    private static SessionFactory sessionFactory = null;
+    private static Connection connection;
+    private static SessionFactory sessionFactory;
+
+    private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private final static String USER = "root";
+    private final static String URL = "jdbc:mysql://localhost:3306/users";
+    private final static String PASSWORD = "wJ687Eb3h6Q9g4";
+
 
     public Util() {
 
@@ -24,19 +30,13 @@ public class Util {
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
-                Configuration configuration = new Configuration();
-                Properties properties = new Properties();
+                Configuration configuration = new Configuration()
+                        .setProperty("hibernate.connection.driver_class", DRIVER)
+                        .setProperty("hibernate.connection.url", URL)
+                        .setProperty("hibernate.connection.username", USER)
+                        .setProperty("hibernate.connection.password", PASSWORD)
+                        .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 
-                properties.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                properties.put(Environment.URL, "jdbc:mysql://localhost:3306/users");
-                properties.put(Environment.USER, "root");
-                properties.put(Environment.PASS, "wJ687Eb3h6Q9g4");
-                properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
-                properties.put(Environment.SHOW_SQL, "true");
-                properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                properties.put(Environment.HBM2DDL_AUTO, "create-drop");
-
-                configuration.setProperties(properties);
                 configuration.addAnnotatedClass(User.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
@@ -56,7 +56,7 @@ public class Util {
     public static Connection getConnection() {
         try {
             if (connection == null) {
-                Driver driver = new com.mysql.cj.jdbc.Driver();
+                Driver driver = new com.mysql.jdbc.Driver();
                 DriverManager.registerDriver(driver);
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
